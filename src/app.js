@@ -8,8 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-var likes = 0;
-
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
@@ -18,6 +16,7 @@ app.get("/repositories", (request, response) => {
 
 app.post("/repositories", (request, response) => {
   const { title, url, techs } = request.body;
+  var likes = 0;
 
   const projeto = {
     id: uuid(),
@@ -69,7 +68,7 @@ app.post("/repositories/:id/like", (request, response) => {
   if(projectIndex < 0){
     return response.status(400).json({ erro: 'Não foi possivel curtir o repositorio' })
   }
-  likes = likes+=1;
+  var likes = projeto.likes+=1;
   projeto['likes'] = likes;  
 
   repositories
